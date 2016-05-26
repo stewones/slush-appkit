@@ -1,0 +1,1 @@
+angular.module("app.env",[]).constant("enviroment","development").constant("base",{url:"http://localhost:3000"}).constant("api",{url:"http://localhost:9000"});

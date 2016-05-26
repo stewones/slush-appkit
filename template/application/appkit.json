@@ -1,0 +1,68 @@
+{
+    "environment": {
+        "development": {
+            "enviroment": "development",
+            "base": {
+                "url": "http://localhost:3000"
+            },
+            "api": {
+                "url": "http://localhost:9000"
+            }
+        },
+        "production": {
+            "enviroment": "production",
+            "base": {
+                "url": "http://www.<%= nameDashed %>.com"
+            },
+            "api": {
+                "url": "https://<%= nameDashed %>-server.herokuapp.com"
+            }
+        }
+    },
+    "application": {
+        "setting": {
+            "name": "<%= name %>",
+            "slug": "<%= nameDashed %>",
+            "email": "<%= authorEmail %>",
+            "logo": "/assets/images/logo.png",
+            "version": "<%= version %>",
+            "title": "<%= name %>",
+            "locale": "pt_BR",
+            "baseUrl": "http://www.<%= nameDashed %>.com",
+            "titleSeparator": " — ",
+            "description": "<%= name %>",
+            "keywords": "",
+            "icon": "/assets/favicon.png",
+            "copyright": "",
+            "google": {
+                "clientId": "",
+                "language": "pt-BR"
+            },
+            "facebook": {
+                "scope": "email",
+                "appId": "0",
+                "appSecret": "0",
+                "language": "pt-BR"
+            },
+            "ogLocale": "pt_BR",
+            "ogSiteName": "<%= name %>",
+            "ogTitle": "<%= name %>",
+            "ogDescription": "<%= name %>",
+            "ogUrl": "http://www.<%= nameDashed %>.com",
+            "ogImage": "",
+            "mongo": {
+                "uri": "mongodb://localhost/<%= nameDashed %>-dev"
+            },
+            "sendgrid": {
+                "apiUser": "",
+                "apiKey": "",
+                "templates": {
+                    "settings": {
+                        "enable": 1,
+                        "template_id": "0"
+                    }
+                }
+            }
+        }
+    }
+}

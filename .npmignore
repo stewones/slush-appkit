@@ -1,0 +1,9 @@
+node_modules
+playground
+temp
+*.log
+.idea
+
+
+# don't ignore .npmignore files
+!.npmignore

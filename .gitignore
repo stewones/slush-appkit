@@ -1,0 +1,15 @@
+node_modules/
+playground/
+temp
+*.log
+.idea
+docs/
+bower_components/
+coverage/
+.tmp/
+.doc.build/
+.build/
+dist/
+*.sublime-project
+*.sublime-workspace
+*.log

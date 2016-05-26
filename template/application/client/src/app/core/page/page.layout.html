@@ -1,0 +1,24 @@
+<!-- sidenav left menu -->
+<md-sidenav
+ui-view="sidenav"
+class="page-menu md-sidenav-left md-whiteframe-z2"
+md-component-id="left"
+md-is-locked-open="$mdMedia('gt-md')"
+ng-if="app.user().isAuthed()">
+</md-sidenav>
+<!-- /sidenav left menu -->
+<div layout="column" flex class="main-content-wrapper">
+    <!-- loader -->
+    <loader></loader>
+    <!-- /loader -->
+    <!-- toolbar -->
+    <md-toolbar ui-view="toolbar" class="main" md-scroll-shrink md-shrink-speed-factor="0.25">
+    </md-toolbar>
+    <!-- /toolbar -->
+    <!-- content -->
+    <md-content class="main-content">
+        <!--class="anim-in-out anim-slide-below-fade"-->
+        <div ui-view="content" class="anim-in-out anim-slide-below-fade"></div>
+    </md-content>
+    <!-- /content -->
+</div>

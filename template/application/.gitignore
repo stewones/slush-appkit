@@ -1,0 +1,13 @@
+docs/
+node_modules/
+bower_components/
+coverage/
+.sass-cache/
+.tmp/
+.doc.build/
+.build/
+dist/
+*.sublime-project
+*.sublime-workspace
+*.log
+.bower.json

@@ -1,0 +1,5 @@
+<div class="app app-header-fixed ">
+    <page-header ng-if="app.user().isAuthed()"></page-header>
+    <page-side ng-if="app.user().isAuthed()"></page-side>
+    <div ui-view="content" ng-class="{'anim-in-out anim-slide-left':app.state().current.transition != false}"></div>
+</div>

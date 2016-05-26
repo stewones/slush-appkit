@@ -1,0 +1,51 @@
+{
+  "name": "slush-appkit",
+  "version": "1.3.6",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stewones/slush-appkit.git"
+  },
+  "author": "Stewan Pacheco",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stewones/slush-appkit/issues"
+  },
+  "main": "slushfile.js",
+  "homepage": "https://github.com/stewones/slush-appkit#readme",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "gulp": "~3.8.6",
+    "gulp-conflict": "~0.2.0",
+    "gulp-exec": "^2.1.2",
+    "gulp-install": "^0.2.0",
+    "gulp-rename": "~1.2.0",
+    "gulp-template": "~0.1.1",
+    "gulp-util": "^3.0.7",
+    "inquirer": "~0.5.1",
+    "lodash": "~3.9.3",
+    "nodemon": "^1.9.2",
+    "slush": "^1.1.1",
+    "yargs": "^4.7.1"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "start": "",
+    "slush": "slush",
+    "test": "gulp test"
+  },
+  "keywords": [
+    "slushgenerator",
+    "angular.js",
+    "javascript",
+    "mean",
+    "node",
+    "node.js",
+    "express",
+    "express.js",
+    "mongoose",
+    "mongodb"
+  ]
+}
