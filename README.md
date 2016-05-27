@@ -34,8 +34,10 @@ $ slush appkit
 ## CLI
 Command Line Interface
 - General
-  - [x] Create new application      
+  - [x] Creates a new application      
   `$ slush appkit`  
+  - [x] Serves both client and server     
+  `$ slush appkit:serve` 
 - Client
   - [ ] Create module               
   `$ slush appkit:client-module [moduleName]`  
@@ -43,7 +45,7 @@ Command Line Interface
   `$ slush appkit:client-config [moduleName] [configName]`  
   - [ ] Create provider             
   `$ slush appkit:client-provider [moduleName] [providerName]`  
-  - [ ] Create component           
+  - [x] Create component           
   `$ slush appkit:client-component [moduleName] [componentName]`
   - [ ] Create directive            
   `$ slush appkit:client-directive [moduleName] [directiveName]`
@@ -61,11 +63,11 @@ Command Line Interface
   - [ ] Create endpoint controller  
   `$ slush appkit:server-controller [endpoint] [controllerName]`
 - Environment
-  - [x] Serve client for dev        
+  - [x] Serves client       
   `$ slush appkit:serve-client`  
-  - [ ] Serve client in dist mode   
+  - [ ] Serves client in dist mode   
   `$ slush appkit:serve-client-dist`
-  - [x] Serve API                
+  - [x] Serves API server
   `$ slush appkit:serve-api` 
 - Deployment
   - [ ] build and deploy client     
