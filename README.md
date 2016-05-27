@@ -39,28 +39,28 @@ Command Line Interface
   - [x] Serves both client and server     
   `$ slush appkit:serve` 
 - Client
-  - [ ] Create module               
+  - [ ] Module               
   `$ slush appkit:client-module [moduleName]`  
-  - [ ] Create config               
+  - [ ] Config               
   `$ slush appkit:client-config [moduleName] [configName]`  
-  - [ ] Create provider             
+  - [ ] Provider             
   `$ slush appkit:client-provider [moduleName] [providerName]`  
-  - [x] Create component           
+  - [x] Component           
   `$ slush appkit:client-component [moduleName] [componentName]`
-  - [ ] Create directive            
+  - [ ] Directive            
   `$ slush appkit:client-directive [moduleName] [directiveName]`
-  - [ ] Create filter               
+  - [ ] Filter               
   `$ slush appkit:client-filter [moduleName] [filterName]`  
-  - [ ] Create service              
+  - [ ] Service              
   `$ slush appkit:client-service [moduleName] [serviceName]`  
-  - [x] Create controller           
+  - [x] Controller           
   `$ slush appkit:client-controller [moduleName] [controllerName]`
 - Server
-  - [ ] Create API endpoint        
+  - [ ] API endpoint        
   `$ slush appkit:server-api [endpoint]`  
-  - [ ] Create endpoint model       
+  - [ ] Endpoint model       
   `$ slush appkit:server-model [endpoint] [modelName]`  
-  - [ ] Create endpoint controller  
+  - [ ] Endpoint controller  
   `$ slush appkit:server-controller [endpoint] [controllerName]`
 - Environment
   - [x] Serves client       
