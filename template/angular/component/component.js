@@ -1,10 +1,10 @@
 /**
  * @ngdoc object
- * @name app.<%= moduleName %>.component:<%= componentName %>
+ * @name app.<%= moduleName %>.module.component:<%= componentName %>
  **/
 (function () {
     'use strict';
-    angular.module('<%= moduleName %>').component('<%= componentName %>', {
+    angular.module('<%= moduleName %>.module').component('<%= componentName %>', {
         bindings: {
             ngModel: '='
         },

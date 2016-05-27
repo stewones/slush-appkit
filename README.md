@@ -38,7 +38,7 @@ Command Line Interface
   `$ slush appkit:serve` 
   
 - ##### Client
-  - [ ] Module               
+  - [x] Module               
   `$ slush appkit:client-module [moduleName]`  
   - [ ] Config               
   `$ slush appkit:client-config [moduleName] [configName]`  

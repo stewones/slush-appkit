@@ -36,9 +36,16 @@ var _ = require('lodash'),
     inquirer = require('inquirer'),
     colors = require('colors'),
     gutil = require('gulp-util'),
-    exec = require('gulp-exec');
+    exec = require('gulp-exec'),
+    nodemon = require('nodemon'),
+    fs = require('fs'),
+    path = require('path');
 
-var nodemon = require('nodemon');
+function getDirectories(srcpath) {
+    return fs.readdirSync(srcpath).filter(function (file) {
+        return fs.statSync(path.join(srcpath, file)).isDirectory();
+    });
+}
 
 //create new app
 gulp.task('default', function (done) {
@@ -56,7 +63,8 @@ gulp.task('default', function (done) {
             }
             answers.nameDashed = _.kebabCase(answers.name);
             answers.nameCamel = _.camelCase(answers.name);
-            var inject = [__dirname + '/template/application/**', '!' + __dirname + '/template/application/build/**'];
+            answers.name = answers.name;
+            var inject = [__dirname + '/template/application/**', '!' + __dirname + '/template/application/client/src/app/app.module.js'];
             gulp.src(inject) // Note use of __dirname to be relative to generator
                 .pipe(template(answers))                 // Lodash template support
                 .pipe(rename(function (path) {
@@ -68,7 +76,12 @@ gulp.task('default', function (done) {
                 .pipe(gulp.dest('./'))                   // Without __dirname here = relative to cwd
                 .pipe(install())                         // Run `bower install` and/or `npm install` if necessary
                 .on('end', function () {
-                    done();                              // Finished!
+                    injectAngularModules(answers.name).on('end', function () {
+                        done(); // Finished!  
+                        setTimeout(function () {
+                            console.log('New application successfully created'.green);
+                        }, 500);
+                    });
                 })
                 .resume();
         });
@@ -77,6 +90,7 @@ gulp.task('default', function (done) {
 //create angular module
 gulp.task('client-module', function (done) {
     var args = this.args;
+
     if (!this.args[0]) {
         console.log('#############################################################'.yellow);
         console.log('######   Incorrect usage                               ######'.yellow);
@@ -95,11 +109,15 @@ gulp.task('client-module', function (done) {
                 return done();
             }
             answers.moduleName = args[0];
+            answers.moduleNameStartCase = _.startCase(args[0]);
 
             var inject = [__dirname + '/template/angular/module/**'];
             gulp.src(inject) // Note use of __dirname to be relative to generator              
                 .pipe(template(answers))                 // Lodash template support
                 .pipe(rename(function (path) {
+                    if (path.extname) {
+                        path.basename = answers.moduleName + '.' + path.basename;
+                    }
                     if (path.basename[0] === '_') { //rename _ to .
                         path.basename = '.' + path.basename.slice(1);
                     }
@@ -108,7 +126,11 @@ gulp.task('client-module', function (done) {
                 .pipe(gulp.dest('./client/src/app/modules/' + answers.moduleName))                   // Without __dirname here = relative to cwd
                 .pipe(install())                         // Run `bower install` and/or `npm install` if necessary
                 .on('end', function () {
-                    done();                              // Finished!
+                    injectAngularModules();
+                    done(); // Finished!  
+                    setTimeout(function () {
+                        console.log('Client module successfully created'.green);
+                    }, 500);
                 })
                 .resume();
         });
@@ -130,15 +152,15 @@ gulp.task('client-controller-generator', function (done) {
     inquirer.prompt([
         //{ type: 'input', name: 'module', message: 'What is the module?', default: gulp.args.join(' ') },
         //{ type: 'input', name: 'name', message: 'What is the name of controller?', default: gulp.args.join(' ') },
-        // { type: 'confirm', name: 'moveon', message: 'Continue?' }
+        { type: 'confirm', name: 'moveon', message: 'Continue?' }
     ],
         function (answers) {
-            // if (!answers.moveon) {
-            //     return done();
-            // }
+            if (!answers.moveon) {
+                return done();
+            }
             answers.moduleName = args[0];
             answers.controllerName = args[1];
-
+            answers.controllerNameStartcase = _.startCase(answers.controllerName);
             var inject = [__dirname + '/template/angular/controller/**']; // Note use of __dirname to be relative to generator
             gulp.src(inject)
                 .pipe(template(answers)) // Lodash template support
@@ -154,7 +176,10 @@ gulp.task('client-controller-generator', function (done) {
                 .pipe(gulp.dest('./client/src/app/modules/' + answers.moduleName)) // Without __dirname here = relative to cwd
                 .pipe(install()) // Run `bower install` and/or `npm install` if necessary
                 .on('end', function () {
-                    done(); // Finished!
+                    done(); // Finished!  
+                    setTimeout(function () {
+                        console.log('New controller successfully created'.green);
+                    }, 500);
                 })
                 .resume();
         });
@@ -176,12 +201,12 @@ gulp.task('client-component-generator', function (done) {
     inquirer.prompt([
         //{ type: 'input', name: 'module', message: 'What is the module?', default: gulp.args.join(' ') },
         //{ type: 'input', name: 'name', message: 'What is the name of controller?', default: gulp.args.join(' ') },
-        // { type: 'confirm', name: 'moveon', message: 'Continue?' }
+        { type: 'confirm', name: 'moveon', message: 'Continue?' }
     ],
         function (answers) {
-            // if (!answers.moveon) {
-            //     return done();
-            // }
+            if (!answers.moveon) {
+                return done();
+            }
             answers.moduleName = args[0];
             answers.componentName = args[1];
 
@@ -200,7 +225,10 @@ gulp.task('client-component-generator', function (done) {
                 .pipe(gulp.dest('./client/src/app/modules/' + answers.moduleName + '/components/' + answers.componentName)) // Without __dirname here = relative to cwd
                 .pipe(install()) // Run `bower install` and/or `npm install` if necessary
                 .on('end', function () {
-                    done(); // Finished!
+                    done(); // Finished!  
+                    setTimeout(function () {
+                        console.log('New component successfully created'.green);
+                    }, 500);
                 })
                 .resume();
         });
@@ -240,3 +268,24 @@ gulp.task('serve', function () {
     gulp.start('serve-client');
     gulp.start('serve-api');
 });
+
+
+//inject angular 3rd party modules in app.module.js
+gulp.task('inject-angular-modules', function (done) {
+    injectAngularModules();
+});
+
+function injectAngularModules() {
+    var appkit = require(process.cwd() + '/appkit.json').application.setting;
+    var answers = {};
+    var modules = getDirectories('./client/src/app/modules');
+    answers.modules = modules || [];
+    answers.name = appkit.name || 'appkit';
+    var inject = [__dirname + '/template/application/client/src/app/app.module.js']; // Note use of __dirname to be relative to generator
+    return gulp.src(inject)
+        .pipe(template(answers)) // Lodash template support 
+        .pipe(conflict('./client/src/app')) // Confirms overwrites on file conflicts
+        .pipe(gulp.dest('./client/src/app')) // Without __dirname here = relative to cwd
+        .pipe(install()) // Run `bower install` and/or `npm install` if necessary
+        ;
+}

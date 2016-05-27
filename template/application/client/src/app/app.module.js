@@ -30,14 +30,18 @@
      * @ngdoc object
      * @name app.module
      **/
-    angular.module('<%= nameCamel %>', [
+    angular.module('<%= name||"appkit" %>', [
         //
         // Load core appkit
         //
+        
         'core.app',
+        
         //
         // Load 3rd party
         //
-        'pages.module'
+        <% _.forEach(modules, function (module, i) { %>
+        '<%= module %>.module'<% if (i != modules.length-1) { %>,<% } %>         
+        <% }); %>
     ]);
 })();
