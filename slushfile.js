@@ -24,7 +24,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  **/
-  
+
 'use strict';
 
 var _ = require('lodash'),
@@ -212,6 +212,10 @@ gulp.task('serve-api', function () {
         ext: 'js'
     }).on('restart', (log) => {
         gutil.log('Modified', gutil.colors.yellow(log))
+    }).on('start', (log) => {
+        gutil.log('#######################################');
+        gutil.log('### Serving API. Wait for client... ###');
+        gutil.log('#######################################');
     });
 });
 
