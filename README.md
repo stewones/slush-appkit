@@ -38,6 +38,7 @@ Command Line Interface
   `$ slush appkit`  
   - [x] Serves both client and server     
   `$ slush appkit:serve` 
+  
 - Client
   - [ ] Module               
   `$ slush appkit:client-module [moduleName]`  
@@ -55,6 +56,7 @@ Command Line Interface
   `$ slush appkit:client-service [moduleName] [serviceName]`  
   - [x] Controller           
   `$ slush appkit:client-controller [moduleName] [controllerName]`
+  
 - Server
   - [ ] API endpoint        
   `$ slush appkit:server-api [endpoint]`  
@@ -62,6 +64,7 @@ Command Line Interface
   `$ slush appkit:server-model [endpoint] [modelName]`  
   - [ ] Endpoint controller  
   `$ slush appkit:server-controller [endpoint] [controllerName]`
+  
 - Environment
   - [x] Serves client       
   `$ slush appkit:serve-client`  
@@ -69,6 +72,7 @@ Command Line Interface
   `$ slush appkit:serve-client-dist`
   - [x] Serves API server
   `$ slush appkit:serve-api` 
+  
 - Deployment
   - [ ] build and deploy client     
   `$ slush appkit:client-deploy`  
