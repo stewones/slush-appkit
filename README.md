@@ -1,9 +1,7 @@
 # slush-appkit
-Generator for Javascript web applications based on Slush.js
+Provides a modular workflow to scaffold and build web applications, based on Slush.js, Gulp.js, and others. Still in early stage of development, but some features is already to go.
 
 <img src="https://app-kit-assets.s3.amazonaws.com/mean-stack.png" width="450">
-
-Still in early stages of development
 
 ## Requirement
 - Node 4+
