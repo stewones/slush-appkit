@@ -59,6 +59,11 @@ gulp.task('default', function (done) {
             var inject = [__dirname + '/template/application/**', '!' + __dirname + '/template/application/build/**'];
             gulp.src(inject) // Note use of __dirname to be relative to generator
                 .pipe(template(answers))                 // Lodash template support
+                .pipe(rename(function (path) {
+                    if (path.basename[0] === '_') { //rename _ to .
+                        path.basename = '.' + path.basename.slice(1);
+                    }
+                }))
                 .pipe(conflict('./'))                    // Confirms overwrites on file conflicts
                 .pipe(gulp.dest('./'))                   // Without __dirname here = relative to cwd
                 .pipe(install())                         // Run `bower install` and/or `npm install` if necessary
@@ -94,6 +99,11 @@ gulp.task('client-module', function (done) {
             var inject = [__dirname + '/template/angular/module/**'];
             gulp.src(inject) // Note use of __dirname to be relative to generator              
                 .pipe(template(answers))                 // Lodash template support
+                .pipe(rename(function (path) {
+                    if (path.basename[0] === '_') { //rename _ to .
+                        path.basename = '.' + path.basename.slice(1);
+                    }
+                }))
                 .pipe(conflict('./client/src/app/modules/' + answers.moduleName))                    // Confirms overwrites on file conflicts            
                 .pipe(gulp.dest('./client/src/app/modules/' + answers.moduleName))                   // Without __dirname here = relative to cwd
                 .pipe(install())                         // Run `bower install` and/or `npm install` if necessary
@@ -131,10 +141,13 @@ gulp.task('client-controller-generator', function (done) {
 
             var inject = [__dirname + '/template/angular/controller/**']; // Note use of __dirname to be relative to generator
             gulp.src(inject)
-                .pipe(template(answers)) // Lodash template support               
+                .pipe(template(answers)) // Lodash template support
                 .pipe(rename(function (path) { //rename files
                     if (path.extname) {
                         path.basename = answers.controllerName + '.' + path.basename;
+                    }
+                    if (path.basename[0] === '_') { //rename _ to .
+                        path.basename = '.' + path.basename.slice(1);
                     }
                 }))
                 .pipe(conflict('./client/src/app/modules/' + answers.moduleName)) // Confirms overwrites on file conflicts
@@ -178,6 +191,9 @@ gulp.task('client-component-generator', function (done) {
                 .pipe(rename(function (path) { //rename files
                     if (path.extname) {
                         path.basename = answers.componentName + '.' + path.basename;
+                    }
+                    if (path.basename[0] === '_') { //rename _ to .
+                        path.basename = '.' + path.basename.slice(1);
                     }
                 }))
                 .pipe(conflict('./client/src/app/modules/' + answers.moduleName + '/components/' + answers.componentName)) // Confirms overwrites on file conflicts
