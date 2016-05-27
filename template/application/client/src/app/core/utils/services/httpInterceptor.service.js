@@ -1,5 +1,5 @@
 /**
- * slush-appkit provides a modular workflow to scaffolding and build web applications
+ * slush-appkit provides a modular workflow to scaffold and build web applications
  * 
  * Software licensed under MIT, maintained by @stewones. Feel free to open an issue or make a PR.
  * Check out documentation and full list of contributors in http://slush-appkit.stpa.co
