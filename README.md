@@ -36,6 +36,8 @@ Command Line Interface
   `$ slush appkit`  
   - [x] Serves both client and server     
   `$ slush appkit:serve` 
+  - [x] Show all availables tasks
+  `$ slush appkit --tasks` 
   
 - ##### Client
   - [x] Module               

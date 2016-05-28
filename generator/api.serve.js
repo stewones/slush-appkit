@@ -24,31 +24,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  **/
- 
+
 'use strict';
 
-/**
- *  The gulp tasks are splitted in several files in the gulp directory
- *  because putting all here was really too long
- */
-
-var gulp = require('gulp');
-var wrench = require('wrench');
-
-/**
- *  This will load all js or coffee files in the gulp directory
- *  in order to load all gulp tasks
- */
-wrench.readdirSyncRecursive('./gulp').filter(function(file) {
-  return (/\.(js|coffee)$/i).test(file);
-}).map(function(file) {
-  require('./gulp/' + file);
-});
-
-/**
- *  Default task clean temporaries directories and launch the
- *  main optimization build task
- */
-gulp.task('default', ['clean'], function () {
-  gulp.start('build');
-});
+module.exports = function (_, gulp, install, conflict, template, rename, inquirer, colors, gutil, exec, fs, path, injectAngularModules, nodemon) {
+    //serve api
+    gulp.task('serve-api', function () {
+        // configure nodemon
+        nodemon({
+            // the script to run the app
+            script: 'server/server.js',
+            // this listens to changes in any of these files/routes and restarts the application
+            watch: ['server/*/**'],
+            ext: 'js'
+        }).on('restart', (log) => {
+            gutil.log('Modified', gutil.colors.yellow(log))
+        }).on('start', (log) => {
+            gutil.log('#######################################');
+            gutil.log('### Serving API. Wait for client... ###');
+            gutil.log('#######################################');
+        });
+    });
+}
