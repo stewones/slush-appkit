@@ -38,6 +38,8 @@ Command Line Interface
   `$ slush appkit:serve` 
   - [x] Show all availables tasks
   `$ slush appkit --tasks` 
+  - [x] Show current version
+  `$ slush appkit --version` 
   
 - ##### Client
   - [x] Module               
