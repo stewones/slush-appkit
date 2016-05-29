@@ -35,13 +35,14 @@ module.exports = function (_, gulp, install, conflict, template, rename, inquire
         var args = this.args;
 
         if (!this.args[0]) {
-            console.log('#############################################################'.yellow);
-            console.log('######   Incorrect usage                               ######'.yellow);
-            console.log('######   Try slush appkit:client-module <moduleName>   ######'.yellow);
-            console.log('######   Example: `slush appkit:client-module user`    ######'.yellow);
-            console.log('#############################################################'.yellow);
+            console.log('###########################################################'.yellow);
+            console.log('#####   Incorrect usage                               #####'.yellow);
+            console.log('#####   Try slush appkit:client-module <moduleName>   #####'.yellow);
+            console.log('#####   Example: `slush appkit:client-module user`    #####'.yellow);
+            console.log('###########################################################'.yellow);
             return done();
         }
+
         inquirer.prompt([
             //{ type: 'input', name: 'module', message: 'What is the module?', default: gulp.args.join(' ') },
             //{ type: 'input', name: 'name', message: 'What is the name of controller?', default: gulp.args.join(' ') },
@@ -67,12 +68,19 @@ module.exports = function (_, gulp, install, conflict, template, rename, inquire
                     }))
                     .pipe(conflict('./client/src/app/modules/' + answers.moduleName))                    // Confirms overwrites on file conflicts            
                     .pipe(gulp.dest('./client/src/app/modules/' + answers.moduleName))                   // Without __dirname here = relative to cwd
-                    .pipe(injectAngularModules(answers.moduleName))                   
+
                     .on('end', function () {
-                        setTimeout(function () {
-                            console.log('Client module successfully created'.green);
-                        }, 500);
-                        done(); // Finished!  
+                        //generates client app.module.js   
+                        injectAngularModules(answers.name).on('end', function () {
+                            setTimeout(function () {
+                                console.log('##################################################'.green);
+                                console.log('#####                                        #####'.green);
+                                console.log('#####   Client module successfully created   #####'.green);
+                                console.log('#####                                        #####'.green);
+                                console.log('##################################################'.green);
+                                done();
+                            }, 500);
+                        });
                     })
                     .resume();
             });

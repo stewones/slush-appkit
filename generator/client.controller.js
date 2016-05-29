@@ -67,9 +67,13 @@ module.exports = function (_, gulp, install, conflict, template, rename, inquire
                     .pipe(gulp.dest('./client/src/app/modules/' + answers.moduleName)) // Without __dirname here = relative to cwd
                     .pipe(install()) // Run `bower install` and/or `npm install` if necessary
                     .on('end', function () {
-                        done(); // Finished!  
                         setTimeout(function () {
-                            console.log('New controller successfully created'.green);
+                            console.log('##################################################'.green);
+                            console.log('#####                                        #####'.green);
+                            console.log('#####   New controller successfully created  #####'.green);
+                            console.log('#####                                        #####'.green);
+                            console.log('##################################################'.green);
+                            done(); // Finished!   
                         }, 500);
                     })
                     .resume();

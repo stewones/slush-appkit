@@ -48,47 +48,51 @@ try {
     if (appkit) {
         appkit = appkit.application.setting || false;
     } else {
-        appkit = false;
+        appkit = {};
     }
 }
 catch (e) {
+    var appkit = {};
     //console.log(e);
 }
 
 require('./generator/application')(_, gulp, install, conflict, template, rename, inquirer, colors, gutil, exec, fs, path, injectAngularModules);
 require('./generator/client.module')(_, gulp, install, conflict, template, rename, inquirer, colors, gutil, exec, fs, path, injectAngularModules);
-require('./generator/client.controller')(_, gulp, install, conflict, template, rename, inquirer, colors, gutil, exec, fs, path, injectAngularModules);
-require('./generator/client.component')(_, gulp, install, conflict, template, rename, inquirer, colors, gutil, exec, fs, path, injectAngularModules);
-require('./generator/client.serve')(_, gulp, install, conflict, template, rename, inquirer, colors, gutil, exec, fs, path, injectAngularModules);
-require('./generator/api.serve')(_, gulp, install, conflict, template, rename, inquirer, colors, gutil, exec, fs, path, injectAngularModules, nodemon);
-require('./generator/serve')(_, gulp, install, conflict, template, rename, inquirer, colors, gutil, exec, fs, path, injectAngularModules);
+require('./generator/client.controller')(_, gulp, install, conflict, template, rename, inquirer, colors, gutil, exec, fs, path);
+require('./generator/client.component')(_, gulp, install, conflict, template, rename, inquirer, colors, gutil, exec, fs, path);
+require('./generator/client.serve')(_, gulp, install, conflict, template, rename, inquirer, colors, gutil, exec, fs, path);
+require('./generator/api.serve')(_, gulp, gutil, nodemon);
+require('./generator/serve')(_, gulp, gutil, nodemon);
 
 function getDirectories(srcpath) {
-
     try {
         var files = fs.readdirSync(srcpath);
-        console.log(files, 123)
-        //    return .filter(function (file) {
-        //         return fs.statSync(path.join(srcpath, file)).isDirectory();
-        //     });
-    } catch($e) {
-     //   console.log($e)
+
+        if (files.length) {
+            return files.filter(function (file) {
+                return fs.statSync(path.join(srcpath, file)).isDirectory();
+            });
+        } else {
+            return [];
+        }
+
+    } catch ($e) {
+        return [];
+        //   console.log($e)
     }
-    
- 
 }
 
 function injectAngularModules(appName) {
-
     var answers = {};
     var modules = getDirectories(process.cwd() + '/client/src/app/modules');
-
     answers.modules = modules || [];
     answers.name = appName || appkit.name || 'appkit';
     var inject = [__dirname + '/template/application/client/src/app/app.module.js']; // Note use of __dirname to be relative to generator
     return gulp.src(inject)
         .pipe(template(answers)) // Lodash template support 
         .pipe(conflict('./client/src/app')) // Confirms overwrites on file conflicts
-        .pipe(gulp.dest('./client/src/app')) // Without __dirname here = relative to cwd    
-        ;
+        .pipe(gulp.dest('./client/src/app')) // Without __dirname here = relative to cwd 
+    // .on('end', function (params) {
+    //     done();
+    // });
 }

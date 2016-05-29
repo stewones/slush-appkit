@@ -2,7 +2,7 @@
     'use strict';
     /**
      * @ngdoc object
-     * @name <%= moduleName %>.module.provider:<%= moduleName %>
+     * @name app.<%= moduleName %>.module.provider
      **/
     angular.module('<%= moduleName %>.module').provider('<%= moduleName %>', /*@ngInject*/ function <%= moduleName %>Provider() {
         this.$get = this.get = /*@ngInject*/ function ($scope, lodash) {

@@ -4,7 +4,7 @@
      * @ngdoc object
      * @name app.config
      **/
-    angular.module('<%= nameCamel %>').config( /*@ngInject*/ function ($logProvider, $appProvider, $translateProvider, setting, enviroment) {
+    angular.module('<%= name %>').config( /*@ngInject*/ function ($logProvider, $appProvider, $translateProvider, setting, enviroment) {
         /**
          * App Config
          */

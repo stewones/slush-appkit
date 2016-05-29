@@ -31,15 +31,15 @@ module.exports = function (_, gulp, install, conflict, template, rename, inquire
     //create angular component
     gulp.task('client-comp', clientComponent);
     gulp.task('client-component', clientComponent);
-    
+
     function clientComponent(done) {
         var args = this.args;
         if (!this.args[0] || !this.args[1]) {
-            console.log('#################################################################################'.yellow);
-            console.log('######   Incorrect usage                                                   ######'.yellow);
-            console.log('######   Try slush appkit:client-component <moduleName> <componentName>    ######'.yellow);
-            console.log('######   Example: `slush appkit:client-component user list`                ######'.yellow);
-            console.log('#################################################################################'.yellow);
+            console.log('##############################################################################'.yellow);
+            console.log('#####   Incorrect usage                                                  #####'.yellow);
+            console.log('#####   Try slush appkit:client-component <moduleName> <componentName>   #####'.yellow);
+            console.log('#####   Example: `slush appkit:client-component user list`               #####'.yellow);
+            console.log('##############################################################################'.yellow);
             return done();
         }
         inquirer.prompt([
@@ -54,7 +54,7 @@ module.exports = function (_, gulp, install, conflict, template, rename, inquire
                 answers.moduleName = args[0];
                 answers.componentName = args[1];
 
-                var inject = [__dirname + '/template/angular/component/**']; // Note use of __dirname to be relative to generator
+                var inject = [__dirname + '/../template/angular/component/**']; // Note use of __dirname to be relative to generator
                 gulp.src(inject)
                     .pipe(template(answers)) // Lodash template support               
                     .pipe(rename(function (path) { //rename files
@@ -69,9 +69,13 @@ module.exports = function (_, gulp, install, conflict, template, rename, inquire
                     .pipe(gulp.dest('./client/src/app/modules/' + answers.moduleName + '/components/' + answers.componentName)) // Without __dirname here = relative to cwd
                     .pipe(install()) // Run `bower install` and/or `npm install` if necessary
                     .on('end', function () {
-                        done(); // Finished!  
                         setTimeout(function () {
-                            console.log('New component successfully created'.green);
+                            console.log('##################################################'.green);
+                            console.log('#####                                        #####'.green);
+                            console.log('#####   New component successfully created   #####'.green);
+                            console.log('#####                                        #####'.green);
+                            console.log('##################################################'.green);
+                            done();
                         }, 500);
                     })
                     .resume();

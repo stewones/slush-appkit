@@ -31,7 +31,6 @@ module.exports = function (_, gulp, install, conflict, template, rename, inquire
 
     //creates a new app
     gulp.task('default', application);
-    gulp.task('application', application);
 
     function application(done) {
         inquirer.prompt([
@@ -59,13 +58,19 @@ module.exports = function (_, gulp, install, conflict, template, rename, inquire
                     }))
                     .pipe(conflict('./'))                    // Confirms overwrites on file conflicts
                     .pipe(gulp.dest('./'))                   // Without __dirname here = relative to cwd
-                    .pipe(install())                         // Run `bower install` and/or `npm install` if necessary
-                    .pipe(injectAngularModules(answers.name))
+                    .pipe(install())                         // Run `bower install` and/or `npm install` if necessary              
                     .on('end', function () {
-                        setTimeout(function () {
-                            console.log('New application successfully created'.green);
-                        }, 500);
-                        return done();
+                        //generates client app.module.js   
+                        injectAngularModules(answers.name).on('end', function () {
+                            setTimeout(function () {
+                                console.log('####################################################'.green);
+                                console.log('#####                                          #####'.green);
+                                console.log('#####   New application successfully created   #####'.green);
+                                console.log('#####                                          #####'.green);
+                                console.log('####################################################'.green);
+                                done();
+                            }, 500);
+                        });
                     })
                     .resume();
             });

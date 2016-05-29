@@ -2,7 +2,7 @@
     'use strict';
     /**
      * @ngdoc object
-     * @name <%= moduleName %>.module.service:<%= moduleNameStartCase %>
+     * @name app.<%= moduleName %>.module.service:<%= moduleNameStartCase %>
      **/
     angular.module('<%= moduleName %>.module').service('<%= moduleNameStartCase %>', /*@ngInject*/ function ($q, $sessionStorage, $http, $timeout, $log, lodash) {
         var _ = lodash,

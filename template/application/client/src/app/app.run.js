@@ -4,7 +4,7 @@
      * @ngdoc object
      * @name app.run
      **/
-    angular.module('<%= nameCamel %>').run( /*@ngInject*/ function () {
+    angular.module('<%= name %>').run( /*@ngInject*/ function () {
         //here goes app run code
     });
 })();

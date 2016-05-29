@@ -27,7 +27,7 @@
 
 'use strict';
 
-module.exports = function (_, gulp, install, conflict, template, rename, inquirer, colors, gutil, exec, fs, path, injectAngularModules, nodemon) {
+module.exports = function (_, gulp, gutil, nodemon) {
     //serve api
     gulp.task('serve-api', function () {
         // configure nodemon
@@ -40,9 +40,7 @@ module.exports = function (_, gulp, install, conflict, template, rename, inquire
         }).on('restart', (log) => {
             gutil.log('Modified', gutil.colors.yellow(log))
         }).on('start', (log) => {
-            gutil.log('#######################################');
-            gutil.log('### Serving API. Wait for client... ###');
-            gutil.log('#######################################');
+
         });
     });
 }
