@@ -52,7 +52,7 @@ module.exports = function (_, gulp, install, conflict, template, rename, inquire
                 answers.moduleName = args[0];
                 answers.controllerName = args[1];
                 answers.controllerNameStartCase = _.startCase(answers.controllerName).split(' ').join('');
-                var inject = [__dirname + '/../template/angular/controller/**']; // Note use of __dirname to be relative to generator
+                var inject = [__dirname + '/../template/client/controller/**']; // Note use of __dirname to be relative to generator
                 gulp.src(inject)
                     .pipe(template(answers)) // Lodash template support
                     .pipe(rename(function (path) { //rename files

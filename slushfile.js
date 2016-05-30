@@ -29,6 +29,7 @@
 
 var _ = require('lodash'),
     gulp = require('gulp'),
+    gulpif = require('gulp-if'),
     install = require('gulp-install'),
     conflict = require('gulp-conflict'),
     template = require('gulp-template'),
@@ -56,7 +57,7 @@ catch (e) {
     //console.log(e);
 }
 
-require('./generator/application')(_, gulp, install, conflict, template, rename, inquirer, colors, gutil, exec, fs, path, injectAngularModules);
+require('./generator/application')(_, gulp, gulpif, install, conflict, template, rename, inquirer, colors, path, injectAngularModules);
 require('./generator/client.module')(_, gulp, install, conflict, template, rename, inquirer, colors, gutil, exec, fs, path, injectAngularModules);
 require('./generator/client.controller')(_, gulp, install, conflict, template, rename, inquirer, colors, gutil, exec, fs, path);
 require('./generator/client.component')(_, gulp, install, conflict, template, rename, inquirer, colors, gutil, exec, fs, path);
@@ -92,7 +93,11 @@ function injectAngularModules(appName) {
         .pipe(template(answers)) // Lodash template support 
         .pipe(conflict('./client/src/app')) // Confirms overwrites on file conflicts
         .pipe(gulp.dest('./client/src/app')) // Without __dirname here = relative to cwd 
-    // .on('end', function (params) {
-    //     done();
-    // });
+        .once('error', function () {
+            process.exit(1);
+        })
+        .once('end', function () {
+            console.log('WAT')
+            process.exit();
+        });
 }

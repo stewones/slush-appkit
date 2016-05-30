@@ -27,7 +27,7 @@
 
 'use strict';
 
-module.exports = function (_, gulp, install, conflict, template, rename, inquirer, colors, gutil, exec, fs, path, injectAngularModules) {
+module.exports = function (_, gulp, gulpif, install, conflict, template, rename, inquirer, colors, path, injectAngularModules) {
 
     //creates a new app
     gulp.task('default', application);
@@ -39,6 +39,7 @@ module.exports = function (_, gulp, install, conflict, template, rename, inquire
             { type: 'input', name: 'authorName', message: 'Give an author name for your app:', default: 'bot' },
             { type: 'input', name: 'authorEmail', message: 'Give an author email for your app:', default: 'hello@world.com' },
             { type: 'input', name: 'license', message: 'Give a license for your app:', default: 'MIT' },
+            { type: 'confirm', name: 'install', message: 'Install module dependencies?' },
             { type: 'confirm', name: 'moveon', message: 'Continue?' }
         ],
             function (answers) {
@@ -49,6 +50,8 @@ module.exports = function (_, gulp, install, conflict, template, rename, inquire
                 answers.nameCamel = _.camelCase(answers.name);
                 answers.name = answers.name;
                 var inject = [__dirname + '/../template/application/**', '!' + __dirname + '/../template/application/client/src/app/app.module.js'];
+
+
                 return gulp.src(inject) // Note use of __dirname to be relative to generator
                     .pipe(template(answers))                 // Lodash template support
                     .pipe(rename(function (path) {
@@ -58,21 +61,23 @@ module.exports = function (_, gulp, install, conflict, template, rename, inquire
                     }))
                     .pipe(conflict('./'))                    // Confirms overwrites on file conflicts
                     .pipe(gulp.dest('./'))                   // Without __dirname here = relative to cwd
-                    .pipe(install())                         // Run `bower install` and/or `npm install` if necessary              
+                    .pipe(gulpif(answers.install, install()))
                     .on('end', function () {
                         //generates client app.module.js   
-                        injectAngularModules(answers.name).on('end', function () {
-                            setTimeout(function () {
-                                console.log('####################################################'.green);
-                                console.log('#####                                          #####'.green);
-                                console.log('#####   New application successfully created   #####'.green);
-                                console.log('#####                                          #####'.green);
-                                console.log('####################################################'.green);
-                                done();
-                            }, 500);
+                        return injectAngularModules(answers.name).on('end', function () {
+                            // setTimeout(function () {
+                            console.log('####################################################'.green);
+                            console.log('#####                                          #####'.green);
+                            console.log('#####   New application successfully created   #####'.green);
+                            console.log('#####                                          #####'.green);
+                            console.log('####################################################'.green);
+                            done();
+                            // }, 500);
                         });
                     })
                     .resume();
             });
     }
+    
+    return gulp;
 }

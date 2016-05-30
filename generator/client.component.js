@@ -54,7 +54,7 @@ module.exports = function (_, gulp, install, conflict, template, rename, inquire
                 answers.moduleName = args[0];
                 answers.componentName = args[1];
 
-                var inject = [__dirname + '/../template/angular/component/**']; // Note use of __dirname to be relative to generator
+                var inject = [__dirname + '/../template/client/component/**']; // Note use of __dirname to be relative to generator
                 gulp.src(inject)
                     .pipe(template(answers)) // Lodash template support               
                     .pipe(rename(function (path) { //rename files

@@ -37,7 +37,7 @@ Command Line Interface
   - [x] Serves both client and server     
   `$ slush appkit:serve` 
   - [x] Show all availables tasks
-  `$ slush appkit --tasks` 
+  `$ slush appkit --tasks`
   - [x] Show current version
   `$ slush appkit --version` 
   
