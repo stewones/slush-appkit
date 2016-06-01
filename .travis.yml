@@ -1,0 +1,8 @@
+language: node_js
+node_js:
+  - "4.4.3"
+before_script:
+  - npm install -g bower
+  - npm install -g gulp
+  - npm install -g slush
+script: bower install && npm install && npm test
