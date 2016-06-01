@@ -43,6 +43,7 @@ var _ = require('lodash'),
     path = require('path');
 
 
+
 //load appkit config
 try {
     var appkit = require(process.cwd() + '/appkit.json');
@@ -69,7 +70,6 @@ require('./generator/api.endpoint')(_, gulp, install, conflict, template, rename
 function getDirectories(srcpath) {
     try {
         var files = fs.readdirSync(srcpath);
-
         if (files.length) {
             return files.filter(function (file) {
                 return fs.statSync(path.join(srcpath, file)).isDirectory();
@@ -77,7 +77,6 @@ function getDirectories(srcpath) {
         } else {
             return [];
         }
-
     } catch ($e) {
         return [];
         //   console.log($e)
@@ -87,6 +86,7 @@ function getDirectories(srcpath) {
 function injectAngularModules(appName) {
     var answers = {};
     var modules = getDirectories(process.cwd() + '/client/src/app/modules');
+
     answers.modules = modules || [];
     answers.name = appName || appkit.name || 'appkit';
     var inject = [__dirname + '/template/application/client/src/app/app.module.js']; // Note use of __dirname to be relative to generator
@@ -94,13 +94,6 @@ function injectAngularModules(appName) {
         .pipe(template(answers)) // Lodash template support 
         .pipe(conflict('./client/src/app')) // Confirms overwrites on file conflicts
         .pipe(gulp.dest('./client/src/app')); // Without __dirname here = relative to cwd 
-        // .once('error', function () {
-        //     process.exit(1);
-        // })
-        // .once('end', function () {
-        //     console.log('WAT')
-        //     process.exit();
-        // });
 }
 
 

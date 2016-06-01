@@ -29,7 +29,7 @@
 
 module.exports = function (_, gulp, install, conflict, template, rename, inquirer, colors, gutil, exec, fs, path, injectApiRoutes) {
     //create node api endpoint
-    gulp.task('server-api', serverApi);
+    gulp.task('server-endpoint', serverApi);
 
     function serverApi(done) {
         var args = this.args;

@@ -39,7 +39,6 @@ module.exports = function (_, gulp, gulpif, install, conflict, template, rename,
             { type: 'input', name: 'authorName', message: 'Give an author name for your app:', default: 'bot' },
             { type: 'input', name: 'authorEmail', message: 'Give an author email for your app:', default: 'hello@world.com' },
             { type: 'input', name: 'license', message: 'Give a license for your app:', default: 'MIT' },
-            { type: 'confirm', name: 'install', message: 'Install module dependencies?' },
             { type: 'confirm', name: 'moveon', message: 'Continue?' }
         ],
             function (answers) {
@@ -51,33 +50,45 @@ module.exports = function (_, gulp, gulpif, install, conflict, template, rename,
                 answers.name = answers.name;
                 var inject = [__dirname + '/../template/application/**', '!' + __dirname + '/../template/application/client/src/app/app.module.js'];
 
+                answers.modules = [];
 
-                return gulp.src(inject) // Note use of __dirname to be relative to generator
-                    .pipe(template(answers))                 // Lodash template support
-                    .pipe(rename(function (path) {
-                        if (path.basename[0] === '_') { //rename _ to .
-                            path.basename = '.' + path.basename.slice(1);
-                        }
-                    }))
-                    .pipe(conflict('./'))                    // Confirms overwrites on file conflicts
-                    .pipe(gulp.dest('./'))                   // Without __dirname here = relative to cwd
-                    .pipe(gulpif(answers.install, install()))
-                    .on('end', function () {
-                        //generates client app.module.js   
-                        return injectAngularModules(answers.name).on('end', function () {
-                            // setTimeout(function () {
-                            console.log('####################################################'.green);
-                            console.log('#####                                          #####'.green);
-                            console.log('#####   New application successfully created   #####'.green);
-                            console.log('#####                                          #####'.green);
-                            console.log('####################################################'.green);
-                            done();
-                            // }, 500);
-                        });
-                    })
-                    .resume();
+
+                //testing mode
+                if (process.env.NODE_ENV === 'test') {
+                    return gulp.src(inject) // Note use of __dirname to be relative to generator
+                        .pipe(template(answers))                 // Lodash template support
+                        .pipe(rename(function (path) {
+                            if (path.basename[0] === '_') { //rename _ to .
+                                path.basename = '.' + path.basename.slice(1);
+                            }
+                        }))
+                        .pipe(gulp.dest('./'))                   // Without __dirname here = relative to cwd
+                        .on('finish', function () { done(); });
+                } else {
+                    return gulp.src(inject) // Note use of __dirname to be relative to generator
+                        .pipe(template(answers))                 // Lodash template support
+                        .pipe(rename(function (path) {
+                            if (path.basename[0] === '_') { //rename _ to .
+                                path.basename = '.' + path.basename.slice(1);
+                            }
+                        }))
+                        .pipe(conflict('./'))                    // Confirms overwrites on file conflicts
+                        .pipe(gulp.dest('./'))                   // Without __dirname here = relative to cwd
+                        .pipe(install())
+                        .on('end', function () {
+                            //generates client app.module.js   
+                            injectAngularModules(answers.name).on('finish', function () {
+                                console.log('####################################################'.green);
+                                console.log('#####                                          #####'.green);
+                                console.log('#####   New application successfully created   #####'.green);
+                                console.log('#####                                          #####'.green);
+                                console.log('####################################################'.green);
+                                done();
+                            });
+                        })
+                        .resume();
+                }
             });
     }
-    
     return gulp;
 }
