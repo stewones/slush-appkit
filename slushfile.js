@@ -62,8 +62,9 @@ require('./generator/client.module')(_, gulp, install, conflict, template, renam
 require('./generator/client.controller')(_, gulp, install, conflict, template, rename, inquirer, colors, gutil, exec, fs, path);
 require('./generator/client.component')(_, gulp, install, conflict, template, rename, inquirer, colors, gutil, exec, fs, path);
 require('./generator/client.serve')(_, gulp, install, conflict, template, rename, inquirer, colors, gutil, exec, fs, path);
-require('./generator/api.serve')(_, gulp, gutil, nodemon);
 require('./generator/serve')(_, gulp, gutil, nodemon);
+require('./generator/api.serve')(_, gulp, gutil, nodemon);
+require('./generator/api.endpoint')(_, gulp, install, conflict, template, rename, inquirer, colors, gutil, exec, fs, path, injectApiRoutes);
 
 function getDirectories(srcpath) {
     try {
@@ -92,12 +93,25 @@ function injectAngularModules(appName) {
     return gulp.src(inject)
         .pipe(template(answers)) // Lodash template support 
         .pipe(conflict('./client/src/app')) // Confirms overwrites on file conflicts
-        .pipe(gulp.dest('./client/src/app')) // Without __dirname here = relative to cwd 
-        .once('error', function () {
-            process.exit(1);
-        })
-        .once('end', function () {
-            console.log('WAT')
-            process.exit();
-        });
+        .pipe(gulp.dest('./client/src/app')); // Without __dirname here = relative to cwd 
+        // .once('error', function () {
+        //     process.exit(1);
+        // })
+        // .once('end', function () {
+        //     console.log('WAT')
+        //     process.exit();
+        // });
+}
+
+
+function injectApiRoutes(appName) {
+    var answers = {};
+    var modules = getDirectories(process.cwd() + '/server/api');
+    answers.modules = modules || [];
+    var inject = [__dirname + '/template/application/server/routes.js']; // Note use of __dirname to be relative to generator
+    return gulp.src(inject)
+        .pipe(template(answers)) // Lodash template support 
+        .pipe(conflict('./server')) // Confirms overwrites on file conflicts
+        .pipe(gulp.dest('./server')) // Without __dirname here = relative to cwd 
+        ;
 }

@@ -60,7 +60,7 @@ Command Line Interface
   `$ slush appkit:client-controller [moduleName] [controllerName]`
   
 - ##### Server
-  - [ ] API endpoint        
+  - [x] API endpoint        
   `$ slush appkit:server-api [endpoint]`  
   - [ ] Endpoint model       
   `$ slush appkit:server-model [endpoint] [modelName]`  
