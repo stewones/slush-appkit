@@ -44,7 +44,6 @@ require('../slushfile');
 describe('slush-appkit', function () {
     before(function () {
         process.chdir(__dirname);
-        process.chdir('../playground');
     });
 
     describe('default generator', function () {
