@@ -4,4 +4,4 @@ node_js:
 before_script:
   - npm install -g gulp
   - npm install -g slush
-script: bower install && npm install && npm test
+script: npm install && npm test
