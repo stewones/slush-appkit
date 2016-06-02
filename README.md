@@ -16,7 +16,6 @@
 $ npm install -g bower
 $ npm install -g gulp
 $ npm install -g slush
-$ npm install -g slush-appkit
 ```
 
 ## Install
