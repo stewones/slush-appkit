@@ -47,7 +47,7 @@ Command Line Interface
   `$ slush appkit:client-component [moduleName] [componentName]`
   - [x] Directive            
   `$ slush appkit:client-directive [moduleName] [directiveName]`
-  - [ ] Filter               
+  - [x] Filter               
   `$ slush appkit:client-filter [moduleName] [filterName]`  
   - [ ] Service              
   `$ slush appkit:client-service [moduleName] [serviceName]`  
