@@ -43,18 +43,16 @@ Command Line Interface
 - ##### Client
   - [x] Module               
   `$ slush appkit:client-module [moduleName]`  
-  - [ ] Config               
-  `$ slush appkit:client-config [moduleName] [configName]`  
-  - [ ] Provider             
-  `$ slush appkit:client-provider [moduleName] [providerName]`  
   - [x] Component           
   `$ slush appkit:client-component [moduleName] [componentName]`
-  - [ ] Directive            
+  - [x] Directive            
   `$ slush appkit:client-directive [moduleName] [directiveName]`
   - [ ] Filter               
   `$ slush appkit:client-filter [moduleName] [filterName]`  
   - [ ] Service              
   `$ slush appkit:client-service [moduleName] [serviceName]`  
+  - [ ] Factory              
+  `$ slush appkit:client-factory [moduleName] [factoryName]`  
   - [x] Controller           
   `$ slush appkit:client-controller [moduleName] [controllerName]`
   
