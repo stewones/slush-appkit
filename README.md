@@ -49,7 +49,7 @@ Command Line Interface
   `$ slush appkit:client-directive [moduleName] [directiveName]`
   - [x] Filter               
   `$ slush appkit:client-filter [moduleName] [filterName]`  
-  - [ ] Service              
+  - [x] Service              
   `$ slush appkit:client-service [moduleName] [serviceName]`  
   - [ ] Factory              
   `$ slush appkit:client-factory [moduleName] [factoryName]`  
