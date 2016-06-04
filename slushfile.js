@@ -64,6 +64,7 @@ require('./generator/client.controller')(_, gulp, install, conflict, template, r
 require('./generator/client.component')(_, gulp, install, conflict, template, rename, inquirer, colors, gutil, exec, fs, path);
 require('./generator/client.directive')(_, gulp, install, conflict, template, rename, inquirer, colors, gutil, exec, fs, path);
 require('./generator/client.filter')(_, gulp, install, conflict, template, rename, inquirer, colors, gutil, exec, fs, path);
+require('./generator/client.service')(_, gulp, install, conflict, template, rename, inquirer, colors, gutil, exec, fs, path);
 require('./generator/client.serve')(_, gulp, install, conflict, template, rename, inquirer, colors, gutil, exec, fs, path);
 require('./generator/serve')(_, gulp, gutil, nodemon);
 require('./generator/api.serve')(_, gulp, gutil, nodemon);
