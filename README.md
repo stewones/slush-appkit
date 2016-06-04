@@ -51,7 +51,7 @@ Command Line Interface
   `$ slush appkit:client-filter [moduleName] [filterName]`  
   - [x] Service              
   `$ slush appkit:client-service [moduleName] [serviceName]`  
-  - [ ] Factory              
+  - [x] Factory              
   `$ slush appkit:client-factory [moduleName] [factoryName]`  
   - [x] Controller           
   `$ slush appkit:client-controller [moduleName] [controllerName]`
