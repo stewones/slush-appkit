@@ -31,14 +31,14 @@ $ slush appkit
 ## CLI
 Command Line Interface
 - ##### General
-  - [x] Creates a new application      
-  `$ slush appkit`  
-  - [x] Serves both client and server     
-  `$ slush appkit:serve` 
-  - [x] Show all availables tasks
+  - [x] Show available tasks
   `$ slush appkit --tasks`
   - [x] Show current version
   `$ slush appkit --version` 
+  - [x] Create new application 
+  `$ slush appkit`  
+  - [x] Serves both client and server
+  `$ slush appkit:serve` 
   
 - ##### Client
   - [x] Module               
