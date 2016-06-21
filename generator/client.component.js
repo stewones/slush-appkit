@@ -59,7 +59,11 @@ module.exports = function (_, gulp, install, conflict, template, rename, inquire
                     .pipe(template(answers)) // Lodash template support               
                     .pipe(rename(function (path) { //rename files
                         if (path.extname) {
-                            path.basename = answers.componentName + '.' + path.basename;
+                            if (path.extname === '.css' || path.extname === '.html') {
+                                path.basename = answers.componentName + path.basename.replace('component', '');
+                            } else {
+                                path.basename = answers.componentName + '.' + path.basename;
+                            }
                         }
                         if (path.basename[0] === '_') { //rename _ to .
                             path.basename = '.' + path.basename.slice(1);

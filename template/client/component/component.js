@@ -8,7 +8,7 @@
         bindings: {
             ngModel: '='
         },
-        templateUrl: "app/modules/<%= moduleName %>/components/<%= componentName %>/<%= componentName %>.component.html",
+        templateUrl: "app/modules/<%= moduleName %>/components/<%= componentName %>/<%= componentName %>.html",
         controller: /*@ngInject*/ function ($scope) {
             var vm = this;
         }
