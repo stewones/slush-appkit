@@ -1,6 +1,8 @@
 # slush-appkit [![Build Status](https://travis-ci.org/stewones/slush-appkit.svg?branch=master)](https://travis-ci.org/stewones/slush-appkit)
 > Provides a modular workflow to scaffold and build web applications, based on Slush.js, Gulp.js, and others.
 
+# @Deprecated: moved to [Appfy](https://github.com/Appfy/appfy-cli)
+
 <img src="https://app-kit-assets.s3.amazonaws.com/mean-stack.png" width="450">
 
 ## Requirement
